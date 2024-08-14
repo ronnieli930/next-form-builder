@@ -13,7 +13,7 @@ function Layout({ children }: { children: ReactNode }) {
           <UserButton />
         </div>
       </nav>
-      <main className="flex w-full flex-grow">{children}</main>
+      <div className="flex w-full flex-grow">{children}</div>
     </div>
   );
 }
