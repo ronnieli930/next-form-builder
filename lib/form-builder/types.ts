@@ -17,9 +17,15 @@ export type FormElement = {
     label: string;
   };
 
-  designerComponent: React.FC;
-  formComponent: React.FC;
-  propsComponent: React.FC;
+  designerComponent: React.FC<{
+    elementInstance: FormElementInstance;
+  }>;
+  formComponent: React.FC<{
+    elementInstance: FormElementInstance;
+  }>;
+  propsComponent: React.FC<{
+    elementInstance: FormElementInstance;
+  }>;
 };
 
 export type FormElementGroupType = {
