@@ -4,6 +4,7 @@ export enum FormElementEnum {
   SubtitleField = "SUBTITLE_FIELD",
   ParagraphField = "PARAGRAPH_FIELD",
   DividerField = "DIVIDER_FIELD",
+  SpacerField = "SPACER_FIELD",
 }
 
 export type FormElementInstance = {

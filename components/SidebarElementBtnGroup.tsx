@@ -16,6 +16,7 @@ function SidebarElementBtnGroup() {
         <SidebarElementBtn formElement={formElementGroup.SUBTITLE_FIELD} />
         <SidebarElementBtn formElement={formElementGroup.PARAGRAPH_FIELD} />
         <SidebarElementBtn formElement={formElementGroup.DIVIDER_FIELD} />
+        <SidebarElementBtn formElement={formElementGroup.SPACER_FIELD} />
 
         <p className="text-sm text-muted-foreground col-span-1 md:col-span-2 my-2 place-self-start">
           Form Elements

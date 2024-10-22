@@ -7,6 +7,7 @@ import { TitleFieldElement } from "./fields/TitleField";
 import { SubtitleFieldElement } from "./fields/SubtitleField";
 import { ParagraphFieldElement } from "./fields/ParagraphField";
 import { DividerFieldElement } from "./fields/DividerField";
+import { SpacerFieldElement } from "./fields/SpacerField";
 
 export const formElementGroup: FormElementGroupType = {
   [FormElementEnum.TextField]: TextFieldElement,
@@ -14,4 +15,5 @@ export const formElementGroup: FormElementGroupType = {
   [FormElementEnum.SubtitleField]: SubtitleFieldElement,
   [FormElementEnum.ParagraphField]: ParagraphFieldElement,
   [FormElementEnum.DividerField]: DividerFieldElement,
+  [FormElementEnum.SpacerField]: SpacerFieldElement,
 };
