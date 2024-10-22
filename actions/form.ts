@@ -16,7 +16,7 @@ async function getCurrentUser() {
   return user;
 }
 
-export async function getFromStats() {
+export async function getFormStats() {
   const user = await getCurrentUser();
   const stats = await prisma.form.aggregate({
     where: {
@@ -118,6 +118,54 @@ export async function publishForm(id: number) {
     where: { userId: user.id, id },
     data: {
       published: true,
+    },
+  });
+}
+
+export async function sleep() {
+  return new Promise((res) => setTimeout(res, 400));
+}
+
+export async function getFormContentByUrl(url: string) {
+  await sleep();
+  return await prisma.form.update({
+    where: { shareURL: url },
+    select: { content: true },
+    data: {
+      visits: {
+        increment: 1,
+      },
+    },
+  });
+}
+
+export async function submitForm(url: string, content: string) {
+  await sleep();
+  return await prisma.form.update({
+    where: { shareURL: url, published: true },
+    data: {
+      submissions: {
+        increment: 1,
+      },
+      FormSubmission: {
+        create: {
+          content,
+        },
+      },
+    },
+  });
+}
+
+export async function getFormWithSubmissions(id: number) {
+  const user = await currentUser();
+  if (!user) {
+    throw new UserNotFoundErr();
+  }
+
+  return await prisma.form.findUnique({
+    where: { id, userId: user.id },
+    include: {
+      FormSubmission: true,
     },
   });
 }

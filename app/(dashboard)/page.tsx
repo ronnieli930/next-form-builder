@@ -1,4 +1,4 @@
-import { getForms, getFromStats } from "@/actions/form";
+import { getForms, getFormStats } from "@/actions/form";
 
 import CreateFormBtn from "@/components/CreateFormBtn";
 import { Badge } from "@/components/ui/badge";
@@ -47,12 +47,12 @@ export default function Home() {
 }
 
 async function CardStatsContainer() {
-  const stats = await getFromStats();
+  const stats = await getFormStats();
   return <StatCardGroup loading={false} data={stats} />;
 }
 
 export interface StatCardGroupProp {
-  data?: Awaited<ReturnType<typeof getFromStats>>;
+  data?: Awaited<ReturnType<typeof getFormStats>>;
   loading: boolean;
 }
 
@@ -106,7 +106,7 @@ export interface StatCardProps {
   className: string;
 }
 
-function StatCard({
+export function StatCard({
   title,
   icon,
   helperText,

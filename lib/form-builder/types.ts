@@ -1,5 +1,8 @@
 export enum FormElementEnum {
   TextField = "TEXT_FIELD",
+  TitleField = "TITLE_FIELD",
+  SubtitleField = "SUBTITLE_FIELD",
+  ParagraphField = "PARAGRAPH_FIELD",
 }
 
 export type FormElementInstance = {
@@ -7,6 +10,8 @@ export type FormElementInstance = {
   type: FormElementEnum;
   extraAttributes?: Record<string, any>;
 };
+
+export type SubmitFnType = (key: string, value: string) => void;
 
 export type FormElement = {
   construct: (id: string) => FormElementInstance;
@@ -22,10 +27,15 @@ export type FormElement = {
   }>;
   formComponent: React.FC<{
     elementInstance: FormElementInstance;
+    submitFn?: SubmitFnType;
+    isValid?: boolean;
+    defaultValue?: string;
   }>;
   propsComponent: React.FC<{
     elementInstance: FormElementInstance;
   }>;
+
+  validate: (formEl: FormElementInstance, currentValue: string) => boolean;
 };
 
 export type FormElementGroupType = {

@@ -3,6 +3,7 @@ import {
   FormElement,
   FormElementEnum,
   FormElementInstance,
+  SubmitFnType,
 } from "@/lib/form-builder/types";
 import { MdTextFields } from "react-icons/md";
 import { Input } from "../ui/input";
@@ -10,7 +11,7 @@ import { Label } from "../ui/label";
 
 import useDesigner from "@/hooks/useDesigner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -24,6 +25,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Switch } from "../ui/switch";
+import { cn } from "@/lib/utils";
 
 const type = FormElementEnum.TextField;
 
@@ -46,7 +48,7 @@ type TextFieldInstance = FormElementInstance & {
 };
 
 export const TextFieldElement: FormElement = {
-  type: FormElementEnum.TextField,
+  type,
   construct: (id: string) => ({
     id,
     type,
@@ -58,6 +60,18 @@ export const TextFieldElement: FormElement = {
   designerBtnElement: {
     icon: MdTextFields,
     label: "Text field",
+  },
+  validate: (formEl: FormElementInstance, currentValue: string): boolean => {
+    console.log("currentValue", currentValue);
+    const {
+      extraAttributes: { required },
+    } = formEl as TextFieldInstance;
+
+    if (required) {
+      return currentValue.length > 0;
+    }
+
+    return true;
   },
 };
 
@@ -231,21 +245,60 @@ function DesignerComponent({
 
 function FormComponent({
   elementInstance,
+  submitFn,
+  isValid,
+  defaultValue = "",
 }: {
   elementInstance: FormElementInstance;
+  submitFn?: SubmitFnType;
+  isValid?: boolean;
+  defaultValue?: string;
 }) {
+  const [value, setValue] = useState(defaultValue);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(isValid === false); // can be undefined ...
+  }, [isValid]);
+
   const {
     extraAttributes: { label, required, placeholder, helperText },
   } = elementInstance as TextFieldInstance;
+
   return (
     <div className="flex flex-col gap-2 w-full">
-      <Label>
+      <Label className={cn(hasError && "text-red-500")}>
         {label}
         {required && "*"}
       </Label>
-      <Input readOnly disabled placeholder={placeholder} />
+      <Input
+        className={cn(hasError && "border-red-500")}
+        placeholder={placeholder}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={(e) => {
+          if (!submitFn) return;
+          const valid = TextFieldElement.validate(
+            elementInstance,
+            e.target.value
+          );
+
+          console.log("valid", valid);
+
+          setHasError(!valid);
+          if (!valid) return;
+          submitFn(elementInstance.id, e.target.value);
+        }}
+        value={value}
+      />
       {helperText && (
-        <p className="text-muted-foreground text-[0.8rem]">{helperText}</p>
+        <p
+          className={cn(
+            "text-muted-foreground text-[0.8rem]",
+            hasError && "text-red-500"
+          )}
+        >
+          {helperText}
+        </p>
       )}
     </div>
   );
