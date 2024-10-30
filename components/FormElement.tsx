@@ -8,6 +8,11 @@ import { SubtitleFieldElement } from "./fields/SubtitleField";
 import { ParagraphFieldElement } from "./fields/ParagraphField";
 import { DividerFieldElement } from "./fields/DividerField";
 import { SpacerFieldElement } from "./fields/SpacerField";
+import { NumberFieldElement } from "./fields/NumberField";
+import { TextareaFieldElement } from "./fields/TextareaField";
+import { DateFieldElement } from "./fields/DateField";
+import { SelectFieldElement } from "./fields/SelectField";
+import { CheckboxFieldElement } from "./fields/CheckboxField";
 
 export const formElementGroup: FormElementGroupType = {
   [FormElementEnum.TextField]: TextFieldElement,
@@ -16,4 +21,9 @@ export const formElementGroup: FormElementGroupType = {
   [FormElementEnum.ParagraphField]: ParagraphFieldElement,
   [FormElementEnum.DividerField]: DividerFieldElement,
   [FormElementEnum.SpacerField]: SpacerFieldElement,
+  [FormElementEnum.NumberField]: NumberFieldElement,
+  [FormElementEnum.TextareaField]: TextareaFieldElement,
+  [FormElementEnum.DateField]: DateFieldElement,
+  [FormElementEnum.SelectField]: SelectFieldElement,
+  [FormElementEnum.CheckboxField]: CheckboxFieldElement,
 };

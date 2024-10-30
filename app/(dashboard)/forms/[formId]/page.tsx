@@ -18,7 +18,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatDistance } from "date-fns";
+import { format, formatDistance } from "date-fns";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface formPagePropsType {
   params: {
@@ -118,6 +120,11 @@ async function SubmissionTable({ id }: { id: number }) {
   formElements.forEach((e) => {
     switch (e.type) {
       case FormElementEnum.TextField:
+      case FormElementEnum.NumberField:
+      case FormElementEnum.TextareaField:
+      case FormElementEnum.DateField:
+      case FormElementEnum.SelectField:
+      case FormElementEnum.CheckboxField:
         columns.push({
           id: e.id,
           label: e.extraAttributes?.label,
@@ -125,6 +132,7 @@ async function SubmissionTable({ id }: { id: number }) {
           type: e.type,
         });
         break;
+
       default:
         break;
     }
@@ -179,9 +187,17 @@ async function SubmissionTable({ id }: { id: number }) {
 function RowCell({ type, value }: { type: FormElementEnum; value: string }) {
   let node: ReactNode = value;
 
-  // switch (type) {
-  //   case FormElementEnum.
-  // }
+  switch (type) {
+    case FormElementEnum.DateField:
+      if (!value) break;
+      const date = new Date(value);
+      node = <Badge variant="outline">{format(date, "dd/MM/yyyy")}</Badge>;
+      break;
+    case FormElementEnum.CheckboxField:
+      const checked = value === "true";
+      node = <Checkbox checked={checked} disabled />;
+      break;
+  }
 
   return <TableCell>{node}</TableCell>;
 }

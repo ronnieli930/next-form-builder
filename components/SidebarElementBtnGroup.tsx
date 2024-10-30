@@ -22,6 +22,11 @@ function SidebarElementBtnGroup() {
           Form Elements
         </p>
         <SidebarElementBtn formElement={formElementGroup.TEXT_FIELD} />
+        <SidebarElementBtn formElement={formElementGroup.TEXTAREA_FIELD} />
+        <SidebarElementBtn formElement={formElementGroup.NUMBER_FIELD} />
+        <SidebarElementBtn formElement={formElementGroup.DATE_FIELD} />
+        <SidebarElementBtn formElement={formElementGroup.SELECT_FIELD} />
+        <SidebarElementBtn formElement={formElementGroup.CHECKBOX_FIELD} />
       </div>
     </>
   );

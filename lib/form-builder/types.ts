@@ -5,6 +5,11 @@ export enum FormElementEnum {
   ParagraphField = "PARAGRAPH_FIELD",
   DividerField = "DIVIDER_FIELD",
   SpacerField = "SPACER_FIELD",
+  NumberField = "NUMBER_FIELD",
+  TextareaField = "TEXTAREA_FIELD",
+  DateField = "DATE_FIELD",
+  SelectField = "SELECT_FIELD",
+  CheckboxField = "CHECKBOX_FIELD",
 }
 
 export type FormElementInstance = {
